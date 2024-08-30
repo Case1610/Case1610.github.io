@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+pre{
+  position: relative;
+  margin: 1em 0;
+  padding: 1em; /* ブロック内の余白 */
+  border-radius: 5px; /* 角丸 */
+  background: #25292f; /* 背景色 */
+  color: #fff; /* 文字色 */
+}
+pre code{
+  display: block;
+  margin: 0;
+  max-height: 240px;
+  line-height: 1.4;
+  overflow: auto;
+}
