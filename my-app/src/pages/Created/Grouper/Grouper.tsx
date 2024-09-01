@@ -8,6 +8,8 @@ import {
     TextField,
     InputAdornment,
     Tooltip,
+    MenuItem,
+    Select,
 } from '@mui/material';
 import { Assignment as AssignmentIcon, Delete as DeleteIcon } from '@mui/icons-material';
 
@@ -115,16 +117,26 @@ const GroupingApp: React.FC = () => {
                     margin="normal"
                 />
 
-                <TextField
+                {/* <TextField
                     label="グループ数"
                     type="number"
                     value={groupCount}
                     onChange={handleGroupCountChange}
-                    inputProps={{ min: 2 }}
+                    // slotProps={{ input: { min: 2 } }}
                     fullWidth
                     variant="outlined"
                     margin="normal"
-                />
+                /> */}
+                    <Select
+                        value={groupCount}
+                        label="グループ数"
+                        onChange={(e) => handleGroupCountChange(e as React.ChangeEvent<HTMLInputElement>)}
+                        fullWidth
+                    >
+                        {Array.from({ length: 29 }, (_, i) => (
+                            <MenuItem key={i} value={i + 2}>{i + 2}</MenuItem>
+                        ))}
+                    </Select>
 
                 <TextField
                     label="グループ名（任意）："
