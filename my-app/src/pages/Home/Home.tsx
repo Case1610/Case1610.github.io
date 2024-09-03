@@ -6,7 +6,15 @@ import Box from '@mui/material/Box'; // Boxコンポーネントを追加
 
 const Home: React.FC = () => (
     <Container fixed>
-        <Box component="section" sx={{ bgcolor: 'background.paper', p: 5, width:'90vw', height:'100vh'}}>
+    <Box component="main"
+        sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+            paddingTop: '64px',
+            paddingBottom: '64px',
+            flexGrow: 1
+        }}>
             <Typography variant="h4">Home Page</Typography>
             <Typography variant="body1">This is an example page using Container and Box.</Typography>
         </Box>

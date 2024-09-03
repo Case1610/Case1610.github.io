@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <Box component="header">
+        <Box component="header" position="fixed" top={0} width="100%" zIndex={1000} boxShadow='0 2px 4px rgba(0,0,0,0.1)'>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>

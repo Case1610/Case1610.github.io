@@ -51,7 +51,7 @@ const Body: React.FC = () => {
 
     return (
         <Container fixed>
-            <Box component="section" sx={{ bgcolor: 'background.paper', pt: { xs: 2, sm: 3, md: 5 }, px: { xs: 2, sm: 8, md: 10 }, pb: { xs: 10, sm: 10, md: 15 }, width: '90vw' }}>
+            <Box component="section" sx={{ bgcolor: 'background.paper', pt: { xs: 2, sm: 3, md: 5 }, px: { xs: 2, sm: 8, md: 10 }, pb: { xs: 10, sm: 10, md: 15 }, width:'100%' }}>
                 <Typography variant="h5">ソーシャルスタイル診断</Typography>
                 <Typography variant="body1" sx={{ mt: 2, mb: 3 }}>
                     以下の質問に回答してください。回答後にあなたのソーシャルスタイルが表示されます。

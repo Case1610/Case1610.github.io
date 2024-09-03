@@ -99,7 +99,14 @@ const GroupingApp: React.FC = () => {
 
     return (
         <Container fixed>
-            <Box component="section" sx={{ bgcolor: 'background.paper', p: 5, width: '90vw', }}>
+            <Box component="section"
+                sx={{
+                    bgcolor: 'background.paper',
+                    pt: { xs: 2, sm: 3, md: 5 },
+                    px: { xs: 2, sm: 8, md: 10 },
+                    pb: { xs: 10, sm: 10, md: 15 },
+                    width: '100%'
+                }}>
                 <h1>GROUPER</h1>
 
                 <Button onClick={handleClear} variant="contained" size="medium">
@@ -127,16 +134,16 @@ const GroupingApp: React.FC = () => {
                     variant="outlined"
                     margin="normal"
                 /> */}
-                    <Select
-                        value={groupCount}
-                        label="グループ数"
-                        onChange={(e) => handleGroupCountChange(e as React.ChangeEvent<HTMLInputElement>)}
-                        fullWidth
-                    >
-                        {Array.from({ length: 29 }, (_, i) => (
-                            <MenuItem key={i} value={i + 2}>{i + 2}</MenuItem>
-                        ))}
-                    </Select>
+                <Select
+                    value={groupCount}
+                    label="グループ数"
+                    onChange={(e) => handleGroupCountChange(e as React.ChangeEvent<HTMLInputElement>)}
+                    fullWidth
+                >
+                    {Array.from({ length: 29 }, (_, i) => (
+                        <MenuItem key={i} value={i + 2}>{i + 2}</MenuItem>
+                    ))}
+                </Select>
 
                 <TextField
                     label="グループ名（任意）："

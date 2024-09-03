@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
             p: 2,
             textAlign: 'center',
             mt: 'auto',
-            position: 'fixed',
+            position: 'auto',
             bottom: 0,
             width: '100%',
             backgroundColor: 'background.paper', // 背景色を設定

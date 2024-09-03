@@ -4,9 +4,9 @@ const createAppTheme = (mode: 'dark' | 'light') =>
     createTheme({
         palette: {
             primary: {
-                light: mode === 'light' ? '#ffa733' : '#487e4c',
-                main: mode === 'light' ? '#ff9100' : '#1b5e20',
-                dark: mode === 'light' ? '#b26500' : '#124116',
+                light: mode === 'light' ? '#ffa733' : '#bdebb1',
+                main: mode === 'light' ? '#ff9100' : '#8CDB78',
+                dark: mode === 'light' ? '#b26500' : '#68c358',
                 contrastText: mode === 'light' ? '#ffffff' : '#000000',
             },
             secondary: {
@@ -26,5 +26,5 @@ const createAppTheme = (mode: 'dark' | 'light') =>
             },
         },
 });
-  
+
 export default createAppTheme;
