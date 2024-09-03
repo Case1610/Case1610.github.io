@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import React, { useEffect, useState } from 'react';
+import { Scatter } from 'react-chartjs-2';
 import Papa from 'papaparse';
 import {
     Container,
@@ -13,7 +14,7 @@ import {
     Radio,
     Grid2,
 } from '@mui/material';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ZAxis, ReferenceLine, ReferenceArea, Label } from 'recharts';
+import { Chart, registerables,ChartConfiguration} from 'chart.js';
 
 interface Question {
     id: string;
@@ -89,13 +90,13 @@ const Body: React.FC = () => {
                         <Grid2 size={{ xs: 2, sm: 4, md: 4 }}>
                             <Box sx={{ mt: 5, width: { xs: "80vw", sm: "20vw", md: "20vw" } }}>
                                 <Box component="img" src={result.gazo} alt={result.CommunicationType} sx={{ width: { xs: "100%", sm: "20vw", md: "20vw" } }} />
-                                <Typography variant="h6" color={"primary"} sx={{ margin: 2, fontWeight: 'bold', textAlign: 'center' }}>{result.CommunicationType}</Typography>
+                                <Typography variant="h6" sx={{ margin: 2, fontWeight: 'bold', textAlign: 'center' }}>{result.CommunicationType}</Typography>
                                 <Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold', }}>{result.explanation1}</Typography>
                                 <Typography variant="body2" sx={{ mb: 5, width: '100%', }}>{result.explanation2}</Typography>
                             </Box>
                         </Grid2>
                         <Grid2 size={{ xs: 2, sm: 4, md: 4 }}>
-                            <Box sx={{ width: { xs: "80vw", sm: "80vw", md: "80vw" }, height: { xs: "40vw", sm: "40vw", md: "40vw" }}}>
+                            <Box sx={{ width: { xs: "80vw", sm: "80vw", md: "80vw" } }}>
                                 <MatrixChart values={values} />
                             </Box>
                         </Grid2>
@@ -133,10 +134,12 @@ const calculateAssertiveAndEmotional = (values: { [key: string]: string }) => {
 };
 const determineCommunicationType = (values: { [key: string]: string }) => {
     const { assertive, emotional } = calculateAssertiveAndEmotional(values);
+
     let CommunicationType = '';
     let explanation1 = '';
     let explanation2 = '';
     let gazo = '';
+
     if (assertive >= 0) {
         if (emotional >= 0) {
             CommunicationType = "ドライバー";
@@ -165,55 +168,186 @@ const determineCommunicationType = (values: { [key: string]: string }) => {
 
     return { CommunicationType, explanation1, explanation2, gazo };
 };
-
+Chart.register(...registerables);
 const MatrixChart = ({ values }: { values: { [key: string]: string } }) => {
-    const { assertive, emotional } = calculateAssertiveAndEmotional(values);
-    const data = [
-        { x: assertive, y: emotional, r: 10 },
-    ];
+    const result = calculateAssertiveAndEmotional(values);
 
-    return (
-        <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart
-                margin={{
-                    top: 5,
-                    right: 30,
-                    bottom: 5,
-                    left: 5,
-                }}
-            >
-                <Legend verticalAlign="top" align="left" height={30} style={{ textAnchor: "middle" }} />
-                <CartesianGrid />
-                <ReferenceLine x={0} stroke="#888888" strokeWidth={5} />
-                <ReferenceLine y={0} stroke="#888888" strokeWidth={5} />
-                <ReferenceArea x1={-10} x2={10} y1={-10} y2={10} >
-                    <Label value="感情を抑える" offset={15} position="top" fill="#aaa" style={{ fontWeight: 'bold', }} />
-                    <Label value="意見を主張" offset={15} position="right" angle={90} fill="#aaa" style={{ fontWeight: 'bold', textAnchor: 'middle' }} />
-                    <Label value="意見を聞く" offset={15} position="left" angle={90} fill="#aaa" style={{ fontWeight: 'bold', textAnchor: 'middle' }} />
-                    <Label value="感情を出す" offset={15} position="bottom" fill="#aaa" style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <ReferenceArea x1={0} x2={10} y1={10} y2={0} fill="#E59595">
-                    <Label value='ドライバー' fill='#4F3131' style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <ReferenceArea x1={0} x2={10} y1={0} y2={-10} fill="#E6D495" fillOpacity={0.3}>
-                    <Label value='エクスプレッシブ' fill='#5D553A' style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <ReferenceArea x1={-10} x2={0} y1={10} y2={0} fill="#95E6AC" fillOpacity={0.3}>
-                    <Label value='エミアブル' fill='#3A5D44' style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <ReferenceArea x1={-10} x2={0} y1={0} y2={-10} fill="#959CE6" fillOpacity={0.3}>
-                    <Label value='アナリティカル' fill='#2D304B' style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <XAxis type="number" dataKey="x" name="assertive" domain={[-10, 10]} fontSize={0} />
-                <YAxis type="number" dataKey="y" name="emotional" domain={[-10, 10]} fontSize={0} />
-                <ZAxis type="number" range={[300]} />
-                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                <Scatter name="あなた" data={data} fill='#ff6400' />
-            </ScatterChart>
-        </ResponsiveContainer>
-    );
+    const data = {
+        datasets: [
+            {
+                label: 'あなた',
+                data: [{ x: result.assertive, y: result.emotional }],
+                backgroundColor: 'RGBA(255,100,0, 1)',
+                pointRadius: 15,
+            },
+        ],
+    };
+
+    const options: ChartConfiguration<'scatter'>['options'] = {
+        scales: {
+            x: {
+                type: 'linear',
+                position: 'bottom',
+                title: {
+                    display: true,
+                    text: 'Assertive',
+                },
+                ticks: {
+                    suggestedMin: -10,
+                    suggestedMax: 10,
+                    stepSize: 3,
+                },
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Emotional',
+                },
+                ticks: {
+                    min: -10,
+                    max: 10,
+                    stepSize: 3,
+                },
+                grid: {
+                    display: false,
+                },
+                gridLines: {
+                    drawTicks: false,
+                    zeroLineColor: '#aaaaaa',
+                    zeroLineWidth: 5,
+                },
+            },
+        },
+        plugins: {
+            beforeDraw: function (chart: Chart) {
+                const ctx = chart.ctx;
+                const chartArea = chart.chartArea;
+                ctx.save();
+                ctx.fillStyle = 'rgba(255, 255, 255, 1)'; // 背景色を白に設定
+                ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+                ctx.restore();
+
+                const midX = (chartArea.left + chartArea.right) / 2;
+                const midY = (chartArea.top + chartArea.bottom) / 2;
+                ctx.save();
+                // 第一象限
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
+                ctx.fillRect(midX, chartArea.top, chartArea.right - midX, midY - chartArea.top);
+                // 第二象限
+                ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+                ctx.fillRect(chartArea.left, chartArea.top, midX - chartArea.left, midY - chartArea.top);
+                // 第三象限
+                ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+                ctx.fillRect(chartArea.left, midY, midX - chartArea.left, chartArea.bottom - midY);
+                // 第四象限
+                ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+                ctx.fillRect(midX, midY, chartArea.right - midX, chartArea.bottom - midY);
+                ctx.restore();
+            }
+        } as any,
+    };
+
+    return <Scatter data={data} options={options} />;
 };
+// let myLineChart: Chart;
 
+// function initializeChart() {
+//     const ctx = document.getElementById("myChart").getContext('2d');
+//     myLineChart = new Chart(ctx, {
+//         plugins: {
+//             beforeDraw: function (chart) {
+//                 const ctx = chart.ctx;
+//                 const chartArea = chart.chartArea;
+//                 const midX = (chartArea.left + chartArea.right) / 2;
+//                 const midY = (chartArea.top + chartArea.bottom) / 2;
+//                 ctx.save();
+//                 // 第一象限
+//                 ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
+//                 ctx.fillRect(midX, chartArea.top, chartArea.right - midX, midY - chartArea.top);
+//                 // 第二象限
+//                 ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+//                 ctx.fillRect(chartArea.left, chartArea.top, midX - chartArea.left, midY - chartArea.top);
+//                 // 第三象限
+//                 ctx.fillStyle = 'rgba(0, 255, 0, 0.2)';
+//                 ctx.fillRect(chartArea.left, midY, midX - chartArea.left, chartArea.bottom - midY);
+//                 // 第四象限
+//                 ctx.fillStyle = 'rgba(255, 255, 0, 0.2)';
+//                 ctx.fillRect(midX, midY, chartArea.right - midX, chartArea.bottom - midY);
+//                 ctx.restore();
+//             }
+//         },
+//         type: 'scatter',
+//         data: {
+//             datasets: [{
+//                 label: 'あなた',
+//                 data: [{
+//                     x: 0,
+//                     y: 0,
+//                 }],
+//                 backgroundColor: 'RGBA(255,100,0, 1)',
+//                 pointRadius: 15,
+//             }]
+//         },
+//         options: {
+//             title: {
+//                 display: false,
+//                 text: '診断結果'
+//             },
+//             legend: {
+//                 display: false
+//             },
+//             scales: {
+//                 x: {
+//                     scaleLabel: {
+//                         display: false,
+//                         labelString: 'コミュニケーション'
+//                     },
+//                     position: 'top'
+//                 },
+//                 xAxes: [{
+//                     type: 'linear',
+//                     zeroLineTick: 0,
+//                     ticks: {
+//                         display: false,
+//                         min: -10,
+//                         max: 10,
+//                         stepSize: 3,
+//                     },
+//                     gridLines: {
+//                         drawTicks: false,
+//                         zeroLineColor: '#aaaaaa',
+//                         zeroLineWidth: 5
+//                     }
+//                 }],
+//                 y: {
+//                     scaleLabel: {
+//                         display: false,
+//                         labelString: '感情表現'
+//                     },
+//                     position: 'left',
+//                     lineWidth: 2
+//                 },
+//                 yAxes: [{
+//                     zeroLineTick: 0,
+//                     ticks: {
+//                         display: false,
+//                         min: -10,
+//                         max: 10,
+//                         stepSize: 3
+//                     },
+//                     gridLines: {
+//                         drawTicks: false,
+//                         zeroLineColor: '#aaaaaa',
+//                         zeroLineWidth: 5
+//                     },
+//                 }]
+//             },
+//         }
+//     });
+// }
 
 export default Body;
 

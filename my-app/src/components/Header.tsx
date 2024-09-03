@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItemButton, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Drawer, List, ListItemButton, ListItemText, Box } from '@mui/material';
 import { Menu as MenuIcon, Brightness4, Brightness7 } from '@mui/icons-material';
 import { useColorMode } from '../context/ColorModeContext'; // useColorMode をインポート
 import appsConfig from '../config/appsConfig'; // appConfig をインポート
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <>
+        <Box component="header">
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                     ))}
                 </List>
             </Drawer>
-        </>
+        </Box>
     );
 };
 
