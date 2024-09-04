@@ -51,8 +51,15 @@ const Body: React.FC = () => {
 
     return (
         <Container fixed>
-            <Box component="section" sx={{ bgcolor: 'background.paper', pt: { xs: 2, sm: 3, md: 5 }, px: { xs: 2, sm: 8, md: 10 }, pb: { xs: 10, sm: 10, md: 15 }, width:'100%' }}>
-                <Typography variant="h5">ソーシャルスタイル診断</Typography>
+            <Box component="section"
+                sx={{
+                    bgcolor: 'background.paper',
+                    pt: { xs: 2, sm: 3, md: 5 },
+                    px: { xs: 2, sm: 3, md: 5 },
+                    pb: { xs: 10, sm: 10, md: 15 },
+                    width: '100%',
+                }}>
+                <Typography variant="h5" color="primary" ><b>ソーシャルスタイル診断</b></Typography>
                 <Typography variant="body1" sx={{ mt: 2, mb: 3 }}>
                     以下の質問に回答してください。回答後にあなたのソーシャルスタイルが表示されます。
                 </Typography>
@@ -85,21 +92,22 @@ const Body: React.FC = () => {
                     診断する
                 </Button>
                 {result && (
-                    <Grid2 spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 2, md: 2 }}>
-                        <Grid2 size={{ xs: 2, sm: 4, md: 4 }}>
-                            <Box sx={{ mt: 5, width: { xs: "80vw", sm: "20vw", md: "20vw" } }}>
-                                <Box component="img" src={result.gazo} alt={result.CommunicationType} sx={{ width: { xs: "100%", sm: "20vw", md: "20vw" } }} />
+                    <Box
+                    sx={{ mt:5, width: '100%', height:'100vh'}}>
+                        <Grid2 container columns={12} spacing={1}>
+                            <Grid2  size={{ xs: 12, sm: 4, md: 4 }}>
+                                <Box component="img" src={result.gazo} alt={result.CommunicationType} sx={{ width: '100%' }} />
                                 <Typography variant="h6" color={"primary"} sx={{ margin: 2, fontWeight: 'bold', textAlign: 'center' }}>{result.CommunicationType}</Typography>
                                 <Typography variant="body1" sx={{ mb: 1, fontWeight: 'bold', }}>{result.explanation1}</Typography>
                                 <Typography variant="body2" sx={{ mb: 5, width: '100%', }}>{result.explanation2}</Typography>
-                            </Box>
+                            </Grid2>
+                            <Grid2 size={{ xs: 12, sm: 8, md: 8 }}>
+                                <Box sx={{ width: ' 100%', height:{xs:'20vh', sm: '100%', md: '100%'} }}>
+                                    <MatrixChart values={values} />
+                                </Box>
+                            </Grid2>
                         </Grid2>
-                        <Grid2 size={{ xs: 2, sm: 4, md: 4 }}>
-                            <Box sx={{ width: { xs: "80vw", sm: "80vw", md: "80vw" }, height: { xs: "40vw", sm: "40vw", md: "40vw" }}}>
-                                <MatrixChart values={values} />
-                            </Box>
-                        </Grid2>
-                    </Grid2>
+                    </Box>
                 )}
             </Box>
         </Container>
