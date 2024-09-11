@@ -24,5 +24,4 @@ const Home: React.FC = () => (
 export default Home;
 
 const root = createRoot(document.getElementById('root')!);
-
 root.render(<Home />);
