@@ -11,6 +11,3 @@ const About: React.FC = () => (
 );
 
 export default About;
-
-const root = createRoot(document.getElementById('root')!);
-root.render(<About />);

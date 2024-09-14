@@ -14,6 +14,7 @@ import {
     Grid2,
 } from '@mui/material';
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, ZAxis, ReferenceLine, ReferenceArea, Label } from 'recharts';
+import { Margin } from "@mui/icons-material";
 
 interface Question {
     id: string;
@@ -61,7 +62,9 @@ const Body: React.FC = () => {
                 }}>
                 <Typography variant="h5" color="primary" ><b>ソーシャルスタイル診断</b></Typography>
                 <Typography variant="body1" sx={{ mt: 2, mb: 3 }}>
-                    以下の質問に回答してください。回答後にあなたのソーシャルスタイルが表示されます。
+                    以下の質問に
+                        <b>「周りからどう見られているか」</b>
+                    で回答してください。回答後にあなたのソーシャルスタイルが表示されます。
                 </Typography>
                 {questions.map((question, index) => (
                     <Box key={index} sx={{ mb: 3 }}>
@@ -109,6 +112,9 @@ const Body: React.FC = () => {
                         </Grid2>
                     </Box>
                 )}
+                <Typography sx={{ my: 5 }}>
+                    引用元：<a href="https://www.wowcom.co.jp/blog/contactcenter/what-is-social-style-theory/">ソーシャルスタイル理論とは？相手の心をつかむコミュニケーション</a>
+                </Typography>
             </Box>
         </Container>
     );
@@ -206,11 +212,11 @@ const MatrixChart = ({ values }: { values: { [key: string]: string } }) => {
                 <ReferenceArea x1={0} x2={10} y1={0} y2={-10} fill="#E6D495" fillOpacity={0.3}>
                     <Label value='エクスプレッシブ' fill='#5D553A' style={{ fontWeight: 'bold', }} />
                 </ReferenceArea>
-                <ReferenceArea x1={-10} x2={0} y1={10} y2={0} fill="#95E6AC" fillOpacity={0.3}>
-                    <Label value='エミアブル' fill='#3A5D44' style={{ fontWeight: 'bold', }} />
-                </ReferenceArea>
-                <ReferenceArea x1={-10} x2={0} y1={0} y2={-10} fill="#959CE6" fillOpacity={0.3}>
+                <ReferenceArea x1={-10} x2={0} y1={10} y2={0} fill="#959CE6" fillOpacity={0.3}>
                     <Label value='アナリティカル' fill='#2D304B' style={{ fontWeight: 'bold', }} />
+                </ReferenceArea>
+                <ReferenceArea x1={-10} x2={0} y1={0} y2={-10} fill="#95E6AC" fillOpacity={0.3}>
+                    <Label value='エミアブル' fill='#3A5D44' style={{ fontWeight: 'bold', }} />
                 </ReferenceArea>
                 <XAxis type="number" dataKey="x" name="assertive" domain={[-10, 10]} fontSize={0} />
                 <YAxis type="number" dataKey="y" name="emotional" domain={[-10, 10]} fontSize={0} />

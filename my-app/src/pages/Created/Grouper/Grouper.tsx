@@ -112,6 +112,9 @@ const GroupingApp: React.FC = () => {
         setMembers('');
         setGroupCount(2);
         setGroupNames('');
+        setIsGroupNamesChecked(false);
+        setIsGroupSizeChecked(false);
+        setGroupSizes([]);
     };
 
     const handleClear = () => {
