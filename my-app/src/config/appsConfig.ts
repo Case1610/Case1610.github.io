@@ -3,6 +3,7 @@ import About from '../pages/About/About';
 import Created from '../pages/Created/Created';
 import Grouper from '../pages/Created/Grouper/Grouper';
 import SocialStyle from '../pages/Created/SocialStyle/SocialStyle';
+import ITliteracy from '../pages/Created/ITliteracy/ITliteracy';
 
 interface AppConfig {
   path: string;
@@ -46,6 +47,13 @@ const appsConfig: AppConfig[] = [
     name: "Social Style",
     component: SocialStyle,
     description: "ソーシャルスタイル診断ツール",
+    image: "/images/app-image/grouper.jpg",
+  },
+  {
+    path: "/itliteracy",
+    name: "IT Literacy",
+    component: ITliteracy,
+    description: "ITリテラシー診断ツール",
     image: "/images/app-image/grouper.jpg",
   },
 ];
