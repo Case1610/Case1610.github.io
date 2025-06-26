@@ -1,11 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Button from '@mui/material/Button'; // Added import
-import Container from '@mui/material/Container'; // Added import
-import Typography from '@mui/material/Typography'; // Added import
-import Box from '@mui/material/Box'; // Boxコンポーネントを追加
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField'; // Added import
 
-const Home: React.FC = () => {
+const ITliteracy: React.FC = () => {
     const [timer, setTimer] = React.useState<number>(0);
     const [isRunning, setIsRunning] = React.useState<boolean>(false);
     const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -41,9 +42,7 @@ const Home: React.FC = () => {
                     <Button onClick={() => { setTimer(0); startTimer(); }}>開始</Button>
                 ) : (
                     <>
-                        <Box mt={2}>
-                            <input type="text" placeholder="テキストを入力してください" />
-                        </Box>
+                        <TextField label="ショートカットキーを入力してください" variant="outlined" />
                         <Button onClick={stopTimer}>終了</Button>
                     </>
                 )}
@@ -52,7 +51,7 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default ITliteracy;
 
 const root = createRoot(document.getElementById('root')!);
-root.render(<Home />);
+root.render(<ITliteracy />);
