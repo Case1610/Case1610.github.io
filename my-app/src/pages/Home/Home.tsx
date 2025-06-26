@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'; // Boxコンポーネントを追加
 
 const Home: React.FC = () => (
     <Container fixed>
-    <Box component="main"
+    <Box component="section"
         sx={{
             minHeight: '100vh',
             display: 'flex',

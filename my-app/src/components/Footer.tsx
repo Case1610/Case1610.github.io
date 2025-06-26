@@ -14,7 +14,7 @@ const Footer: React.FC = () => (
             zIndex: 900,
             width: '100%',
         }}>
-        <Box sx={{display: 'flex', m: 1, width:{xs:'20%', md: '50%', lg:'90%'},backgroundColor: 'background.paper', }}>
+        {/* <Box sx={{display: 'flex', m: 1, width:{xs:'20%', md: '50%', lg:'90%'},backgroundColor: 'background.paper', }}>
             <Button variant="contained" color="primary" size="small" sx={{ m: 1, width: '100%', textAlign: 'center' }}>P</Button>
             <Button variant="outlined" color="primary" size="small" sx={{ m: 1, width: '100%', textAlign: 'center', display:{xs:'none',sm:'block'}}}>P</Button>
             <Button variant="text" color="primary" size="small" sx={{ m: 1, width: '100%', textAlign: 'center', display:{xs:'none',sm:'block'} }}>P</Button>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => (
             <Button variant="contained" color="error" size="small" disabled sx={{ m: 1, width: '100%', textAlign: 'center', display:{xs:'none',sm:'block'} }}>D</Button>
             <Button variant="outlined" color="error" size="small" disabled sx={{ m: 1, width: '100%', textAlign: 'center', display:{xs:'none',sm:'block'} }}>D</Button>
             <Button variant="text" color="error" size="small" disabled sx={{ m: 1, width: '100%', textAlign: 'center', display:{xs:'none',sm:'block'} }}>D</Button>
-        </Box>
+        </Box> */}
         <Box
             sx={{
                 m: 1,p:1,
